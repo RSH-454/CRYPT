@@ -1,6 +1,6 @@
 FileName = 'SavedData.txt'
-#This function allows the user to save new data.
-def SaveNew():
+#This function allows the user to save new data. 
+def SaveData():
     print('Enter name of the account: ')
     Account = input()
     print('Enter password: ')
@@ -9,7 +9,7 @@ def SaveNew():
         f.write("Account: " + Account + " " + "Password: " + Password + "\n")
 
 #This function allows the user to view previously saved data. 
-def ViewSaved():
+def ViewData():
     print('Enter the name of the account you want to view: ')
     Account = input()
     with open(FileName, 'r') as f:
@@ -27,8 +27,8 @@ while True:
     Option = input('Choose option: \n 1. Save new password \n 2. View saved passwords \n 3. Exit\nOption: ')
 
     if Option == '1':
-        SaveNew()
+        SaveData()
     elif Option == '2':
-        ViewSaved()
+        ViewData()
     elif Option == '3':
         break
