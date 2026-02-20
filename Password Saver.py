@@ -1,15 +1,15 @@
 print('[PASSWWORD SAVER]')
 input('Press enter to continue...\n')
-Option = input('Choose operation: \n 1. Save new password \n 2. View saved passwords \n 3. Exit') 
+Option = input('Choose option: \n 1. Save new password \n 2. View saved passwords \n 3. Exit\nOption: ') 
 
-FileName = 'SavedPasswords.txt'
+FileName = 'SavedData.txt'
 def SaveNew():
     print('Enter name of the account: ')
     Account = input()
     print('Enter password: ')
     Password = input()
-    with open(FileName, 'w') as f:
-        f.write("Account: " + Account + " " + "Password: " + Password)  
+    with open(FileName, 'a') as f:
+        f.write("Account: " + Account + " " + "Password: " + Password + "\n")  
 
 def ViewSaved():
     print('Enter the name of the account you want to view: ')
