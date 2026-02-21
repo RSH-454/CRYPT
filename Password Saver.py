@@ -1,3 +1,4 @@
+import os
 FileName = 'SavedData.txt'
 #This function allows the user to save new data. 
 def SaveData():
@@ -20,7 +21,30 @@ def ViewData():
             break
         else:
           print("Account not found.")
+          
+#This function checks if the file exists or if it is empty.
+def CheckPassword(Path):
+    return (not os.path.exists(Path)) or os.path.getsize(Path) == 0
 
+#This function allows the user to create and set a password for access. 
+def Access():
+    Authorization = "SetPassword.txt"
+    if CheckPassword(Authorization):
+        CreatePassword = input('Create a password to access the password saver: ')
+        with open(Authorization, 'w') as f:
+            f.write(CreatePassword)
+    else:
+        with open(Authorization, 'r') as f:
+            CreatePassword = f.read()
+    while True:
+        Password = input('Enter password: ')
+        if Password == CreatePassword:
+            print('Access granted.\n')
+            break
+        else:
+            print('Incorrect password. Try again.\n')
+
+Access()
 print('[PASSWORD SAVER]')
 input('Press enter to continue...\n')
 while True:
@@ -28,7 +52,9 @@ while True:
 
     if Option == '1':
         SaveData()
+        input('Press enter to return to menu...\n')
     elif Option == '2':
         ViewData()
+        input('Press enter to return to menu...\n')
     elif Option == '3':
         break
