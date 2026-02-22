@@ -14,6 +14,9 @@ def SaveData():
 def Search():
     print('Enter the name of the account you want to view: ')
     Account = input()
+    if CheckFile(FileName):
+        print("No passwords saved yet.")
+        return
     with open(FileName, 'r') as f:
         content = f.read()
         for line in content.splitlines():  
@@ -25,18 +28,21 @@ def Search():
 
 #This function allows the user to view all previously saved data.
 def ViewAll():
+    if CheckFile(FileName):
+        print("No passwords saved yet.")
+        return
     with open(FileName, 'r') as f:
         content = f.read()
         print(content)          
 
 #This function checks if the file exists or if it is empty.
-def CheckPassword(Path):
+def CheckFile(Path):
     return (not os.path.exists(Path)) or os.path.getsize(Path) == 0
 
 #This function allows the user to create and set a password for access. 
 def Access():
     Authorization = "SetPassword.txt"
-    if CheckPassword(Authorization):
+    if CheckFile(Authorization):
         CreatePassword = input('Create a password to access the password saver: ')
         with open(Authorization, 'w') as f:
             f.write(CreatePassword)
