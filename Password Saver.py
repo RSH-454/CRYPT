@@ -5,26 +5,30 @@ FileName = 'SavedData.txt'
 def Save():
     print('Enter name of the account: ')
     Account = input()
+    Account = Account.strip()
     print('Enter password: ')
     Password = input()
+    Password = Password.strip()
     with open(FileName, 'a') as f:
         f.write("Account: " + Account + " " + "Password: " + Password + "\n")
 
 #This function allows the user to view previously saved data. 
 def Search():
     print('Enter the name of the account you want to view: ')
-    Account = input()
+    Account = input().strip()         
     if CheckFile(FileName):
         print("No passwords saved yet.")
         return
     with open(FileName, 'r') as f:
         content = f.read()
-        for line in content.splitlines():  
-         if Account in line:
-            print(line)    
-            break
+        for line in content.splitlines():
+            if "Account:" in line and "Password:" in line:
+                saved_account = line.split("Account:", 1)[1].split("Password:", 1)[0].strip()
+                if saved_account == Account:
+                    print(line)
+                    break
         else:
-          print("Account not found.")
+            print("Account not found.")
 
 #This function allows the user to view all previously saved data.
 def ViewAll():
