@@ -1,4 +1,5 @@
 import os
+import getpass
 FileName = 'SavedData.txt'
 
 #This function allows the user to save new data. 
@@ -12,7 +13,7 @@ def Save():
     with open(FileName, 'a') as f:
         f.write("Account: " + Account + " " + "Password: " + Password + "\n")
 
-#This function allows the user to view previously saved data. 
+#This function allows the user to search for previously saved data.
 def Search():
     print('Enter the name of the account you want to view: ')
     Account = input().strip()         
@@ -54,7 +55,7 @@ def Access():
         with open(Authorization, 'r') as f:
             CreatePassword = f.read()
     while True:
-        Password = input('Enter password: ')
+        Password = getpass.getpass('Enter password: ')
         if Password == CreatePassword:
             print('Access granted.\n')
             break
