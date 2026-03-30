@@ -27,5 +27,8 @@ Option:
 ## 📋 Requirements  
 - Python 3.x
 - No external libraries needed.
+
+## ⚠️ Security Warning
+  Because this program does not use encryption to protect stored data, it is recommended to keep the application on a flash drive or other local storage device to reduce exposure and keep your information out of reach.
 ## ⚖️ License
 This project is licensed under the MIT License.
