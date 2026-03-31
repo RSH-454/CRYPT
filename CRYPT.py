@@ -1,5 +1,6 @@
 import os
 import getpass
+import hashlib
 
 FileName = 'SavedData.txt'
 
@@ -14,7 +15,9 @@ def header():
    ╚═════╝╚═╝  ╚═╝   ╚═╝   ╚═╝        ╚═╝  
 
                PASSWORD SAVER
+                  ver 1.0
 """)
+    
 #This function allows the user to save new data. 
 def save():
     print('Enter name of the account: ')
@@ -57,23 +60,29 @@ def view_all():
 def check_file(Path):
     return (not os.path.exists(Path)) or os.path.getsize(Path) == 0
 
+#this function hashes the password.
+def hash_password(password):
+    return hashlib.sha256(password.encode()).hexdigest()
+
 #This function allows the user to create and set a password for access. 
 def access():
     authorization = "SetPassword.txt"
     if check_file(authorization):
-        CreatePassword = input('Create a password to access the password saver: ')
+        set_password = input('Create a password to access the password saver: ')
+        hash_password(set_password)
         with open(authorization, 'w') as f:
-            f.write(CreatePassword)
+            f.write(hash_password(set_password))
     else:
         with open(authorization, 'r') as f:
-            CreatePassword = f.read()
+            set_password = f.read()
     while True:
         password = getpass.getpass('Enter password: ')
-        if password == CreatePassword:
+        if hash_password(password) == set_password:
             print('[ACCESS GRANTED]\n')
             break
         else:
             print('[ACCESS DENIED]: Incorrect password. Try again.\n')
+
 header()
 access()
 input('Press enter to continue...\n')
