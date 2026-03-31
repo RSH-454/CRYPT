@@ -1,8 +1,8 @@
-# Password Saver
+# CRYPT
 A simple CLI password saver written in Python.
 
 ## 📌 Overview
-Password Saver is a lightweight command-line Python application that is used for basic credential storage and simple access control.
+CRYPT is a lightweight command-line Python application that is used for basic credential storage and simple access control that can be used on Windows, Linux, and MacOS.
 
 ## ⚙️ Features
 - Master password protection for access control
@@ -29,6 +29,8 @@ Option:
 - No external libraries needed.
 
 ## ⚠️ Security Warning
-  Because this program does not use encryption to protect stored data, it is recommended to keep the application on a flash drive or other local storage device to reduce exposure and keep your information out of reach.
+  Because this program does not yet use encryption to protect stored data, it is recommended to keep the application on a flash drive or other local storage device to reduce exposure and keep your information out of reach.
 ## ⚖️ License
 This project is licensed under the MIT License.
+
+ 🏗️ CRYPT is Still under development...
