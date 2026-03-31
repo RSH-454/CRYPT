@@ -1,9 +1,22 @@
 import os
 import getpass
+
 FileName = 'SavedData.txt'
 
+def header():
+    os.system("cls" if os.name == "nt" else "clear")
+    print(r"""
+   ██████╗██████╗ ██╗   ██╗██████╗ ████████╗
+  ██╔════╝██╔══██╗╚██╗ ██╔╝██╔══██╗╚══██╔══╝
+  ██║     ██████╔╝ ╚████╔╝ ██████╔╝   ██║   
+  ██║     ██╔══██╗  ╚██╔╝  ██╔═══╝    ██║   
+  ╚██████╗██║  ██║   ██║   ██║        ██║   
+   ╚═════╝╚═╝  ╚═╝   ╚═╝   ╚═╝        ╚═╝  
+
+               PASSWORD SAVER
+""")
 #This function allows the user to save new data. 
-def Save():
+def save():
     print('Enter name of the account: ')
     Account = input()
     Account = Account.strip()
@@ -14,10 +27,10 @@ def Save():
         f.write("Account: " + Account + " " + "Password: " + Password + "\n")
 
 #This function allows the user to search for previously saved data.
-def Search():
+def search():
     print('Enter the name of the account you want to view: ')
     Account = input().strip()         
-    if CheckFile(FileName):
+    if check_file(FileName):
         print("No passwords saved yet.")
         return
     with open(FileName, 'r') as f:
@@ -32,8 +45,8 @@ def Search():
             print("Account not found.")
 
 #This function allows the user to view all previously saved data.
-def ViewAll():
-    if CheckFile(FileName):
+def view_all():
+    if check_file(FileName):
         print("No passwords saved yet.")
         return
     with open(FileName, 'r') as f:
@@ -41,43 +54,42 @@ def ViewAll():
         print(content)          
 
 #This function checks if the file exists or if it is empty.
-def CheckFile(Path):
+def check_file(Path):
     return (not os.path.exists(Path)) or os.path.getsize(Path) == 0
 
 #This function allows the user to create and set a password for access. 
-def Access():
-    Authorization = "SetPassword.txt"
-    if CheckFile(Authorization):
+def access():
+    authorization = "SetPassword.txt"
+    if check_file(authorization):
         CreatePassword = input('Create a password to access the password saver: ')
-        with open(Authorization, 'w') as f:
+        with open(authorization, 'w') as f:
             f.write(CreatePassword)
     else:
-        with open(Authorization, 'r') as f:
+        with open(authorization, 'r') as f:
             CreatePassword = f.read()
     while True:
-        Password = getpass.getpass('Enter password: ')
-        if Password == CreatePassword:
-            print('Access granted.\n')
+        password = getpass.getpass('Enter password: ')
+        if password == CreatePassword:
+            print('[ACCESS GRANTED]\n')
             break
         else:
-            print('Incorrect password. Try again.\n')
-
-Access()
-print('[PASSWORD SAVER]')
+            print('[ACCESS DENIED]: Incorrect password. Try again.\n')
+header()
+access()
 input('Press enter to continue...\n')
 while True:
     Option = input('Choose option: \n 1. Save \n 2. Search \n 3. View all \n 4. Exit\nOption: ')
  
     if Option == '1':
-        Save()
+        save()
         input('Press enter to return to menu...\n')
 
     elif Option == '2':
-        Search()
+        search()
         input('Press enter to return to menu...\n')
 
     elif Option == '3':
-        ViewAll()
+        view_all()
         input('Press enter to return to menu...\n')
 
     elif Option == '4':
