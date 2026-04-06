@@ -2,7 +2,8 @@ import os
 import getpass
 import hashlib
 
-FileName = 'SavedData.txt'
+file_data = 'SavedData.txt'
+auth = "SetPassword.txt"
 
 def header():
     os.system("cls" if os.name == "nt" else "clear")
@@ -18,6 +19,16 @@ def header():
                   ver 1.0
 """)
     
+#This function hides the files. 
+def hide_files():
+    if not os.path.exists(file_data or auth): 
+       return  
+    if os.name == 'nt':
+        os.system('attrib +h ' + file_data)
+    else:
+        if not file_data.startswith('.'):
+            os.rename(file_data, '.' + file_data)
+
 #This function allows the user to save new data. 
 def save():
     print('Enter name of the account: ')
@@ -26,17 +37,18 @@ def save():
     print('Enter password: ')
     Password = input()
     Password = Password.strip()
-    with open(FileName, 'a') as f:
+    with open(file_data, 'a') as f:
         f.write("Account: " + Account + " " + "Password: " + Password + "\n")
+        hide_files()
 
 #This function allows the user to search for previously saved data.
 def search():
     print('Enter the name of the account you want to view: ')
     Account = input().strip()         
-    if check_file(FileName):
+    if check_file(file_data):
         print("No passwords saved yet.")
         return
-    with open(FileName, 'r') as f:
+    with open(file_data, 'r') as f:
         content = f.read()
         for line in content.splitlines():
             if "Account:" in line and "Password:" in line:
@@ -49,10 +61,10 @@ def search():
 
 #This function allows the user to view all previously saved data.
 def view_all():
-    if check_file(FileName):
+    if check_file(file_data):
         print("No passwords saved yet.")
         return
-    with open(FileName, 'r') as f:
+    with open(file_data, 'r') as f:
         content = f.read()
         print(content)          
 
@@ -66,14 +78,13 @@ def hash_password(password):
 
 #This function allows the user to create and set a password for access. 
 def access():
-    authorization = "SetPassword.txt"
-    if check_file(authorization):
+    if check_file(auth):
         set_password = input('Create a password to access the password saver: ')
         hash_password(set_password)
-        with open(authorization, 'w') as f:
+        with open(auth, 'w') as f:
             f.write(hash_password(set_password))
     else:
-        with open(authorization, 'r') as f:
+        with open(auth, 'r') as f:
             set_password = f.read()
     while True:
         password = getpass.getpass('Enter password: ')
@@ -82,6 +93,7 @@ def access():
             break
         else:
             print('[ACCESS DENIED]: Incorrect password. Try again.\n')
+            hide_files()
 
 header()
 access()
