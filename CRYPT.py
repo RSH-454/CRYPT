@@ -78,12 +78,7 @@ def hash_password(password):
 
 #This function allows the user to create and set a password for access. 
 def access():
-
     if check_file(auth):
-        set_password = input('Create a password to access the password saver: ')
-
-    authorization = "SetPassword.txt"
-    if check_file(authorization):
         set_password = input('Create a password: ')
 
         hash_password(set_password)
