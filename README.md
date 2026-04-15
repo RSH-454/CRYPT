@@ -25,10 +25,6 @@ Option:
 - Search: This option looks for a specific account within the save data.
 - View all: This option allows the user to see a list of all saved data.
 - Exit: This option terminates the program.
-  
-## 📋 Requirements  
-- Python 3.x
-- No external libraries needed.
 
 ## ⚠️ Security Warning
   Because this program does not yet use encryption to protect stored data, it is recommended to keep the application on a flash drive or other local storage device to reduce exposure and keep your information out of reach.
