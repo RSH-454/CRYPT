@@ -15,8 +15,8 @@ def header():
   ╚██████╗██║  ██║   ██║   ██║        ██║   
    ╚═════╝╚═╝  ╚═╝   ╚═╝   ╚═╝        ╚═╝  
 
-               PASSWORD SAVER
-                  ver 1.1.1
+               PASSWORD MANAGER
+                  ver 1.2.1
 """)
     
 #This function hides the files. 
@@ -78,6 +78,20 @@ def check_file(Path):
 def hash_password(password):
     return hashlib.sha256(password.encode()).hexdigest()
 
+def reset_password():
+    current_password = getpass.getpass('Enter your current password: ').strip()
+    if hash_password(current_password) != open(auth, 'r').read().strip():
+        print("Incorrect current password.")
+        return
+    new_password = getpass.getpass('Enter new password: ').strip()
+    confirm_password = getpass.getpass('Confirm new password: ').strip()
+    if new_password != confirm_password:
+        print("Passwords do not match.")
+        return
+    stored_hash = hash_password(new_password)
+    with open(auth, 'w') as f:
+        f.write(stored_hash)
+
 #This function allows the user to create and set a password for access. 
 def access():
     if check_file(auth):
@@ -102,7 +116,7 @@ header()
 access()
 input('Press enter to continue...\n')
 while True:
-    Option = input('Choose option: \n 1. Save \n 2. Search \n 3. View all \n 4. Exit\nOption: ')
+    Option = input('Choose option: \n 1. Save \n 2. Search \n 3. View all \n 4. Reset Password \n 5. Exit \nOption: ')
  
     if Option == '1':
         save()
@@ -115,6 +129,12 @@ while True:
     elif Option == '3':
         view_all()
         input('Press enter to return to menu...\n')
-
+    
     elif Option == '4':
+        reset_password()
+        print('Password reset successful.\n')
+        input('Press enter to return to menu...\n')
+
+    elif Option == '5':
+        os.system("cls" if os.name == "nt" else "clear")
         break 
