@@ -16,9 +16,37 @@ def header():
    ╚═════╝╚═╝  ╚═╝   ╚═╝   ╚═╝        ╚═╝  
 
                PASSWORD MANAGER
-                  ver 1.2.1
+                  ver 1.3.0
 """)
     
+#This function allows the user to create and set a password for access. 
+def access():
+    if check_file(auth):
+        set_password = input('Create a password: ').strip()
+        stored_hash = hash_password(set_password)
+
+        with open(auth, 'w') as f:
+            f.write(stored_hash)
+    else:
+        with open(auth, 'r') as f:
+            stored_hash = f.read().strip()
+
+    while True:
+        password = getpass.getpass('Enter password: ').strip()
+        if hash_password(password) == stored_hash:
+            print('[ACCESS GRANTED]\n')
+            break
+        else:
+            print('[ACCESS DENIED]: Incorrect password. Try again.\n')
+
+#This function checks if the file exists or if it is empty.
+def check_file(Path):
+    return (not os.path.exists(Path)) or os.path.getsize(Path) == 0
+
+#This function hashes the password.
+def hash_password(password):
+    return hashlib.sha256(password.encode()).hexdigest()
+
 #This function hides the files. 
 def hide_files():
      if os.name == 'nt':
@@ -70,14 +98,7 @@ def view_all():
         content = f.read()
         print(content)          
 
-#This function checks if the file exists or if it is empty.
-def check_file(Path):
-    return (not os.path.exists(Path)) or os.path.getsize(Path) == 0
-
-#this function hashes the password.
-def hash_password(password):
-    return hashlib.sha256(password.encode()).hexdigest()
-
+#This function allows the user to reset their password.
 def reset_password():
     current_password = getpass.getpass('Enter your current password: ').strip()
     if hash_password(current_password) != open(auth, 'r').read().strip():
@@ -91,26 +112,6 @@ def reset_password():
     stored_hash = hash_password(new_password)
     with open(auth, 'w') as f:
         f.write(stored_hash)
-
-#This function allows the user to create and set a password for access. 
-def access():
-    if check_file(auth):
-        set_password = input('Create a password: ').strip()
-        stored_hash = hash_password(set_password)
-
-        with open(auth, 'w') as f:
-            f.write(stored_hash)
-    else:
-        with open(auth, 'r') as f:
-            stored_hash = f.read().strip()
-
-    while True:
-        password = getpass.getpass('Enter password: ').strip()
-        if hash_password(password) == stored_hash:
-            print('[ACCESS GRANTED]\n')
-            break
-        else:
-            print('[ACCESS DENIED]: Incorrect password. Try again.\n')
 
 header()
 access()
