@@ -1,6 +1,7 @@
 # CRYPT
-A simple CLI password saver written in Python.
-
+[![Python](https://img.shields.io/badge/Python-3.x-blue)](https://www.python.org/downloads/)
+[![Platform](https://img.shields.io/badge/Platform-CLI-lightgrey)](https://en.wikipedia.org/wiki/Command-line_interface)
+[![Status](https://img.shields.io/badge/Status-Active-green)](#)
 ## 📌 Overview
 CRYPT is a lightweight command-line Python application that is used for basic credential storage and simple access control that can be used on Windows, Linux, and MacOS.
 
@@ -23,10 +24,6 @@ Option:
 - Search: This option looks for a specific account within the save data.
 - View all: This option allows the user to see a list of all saved data.
 - Exit: This option terminates the program.
-  
-## 📋 Requirements  
-- Python 3.x
-- No external libraries needed.
 
 ## ⚠️ Security Warning
   Because this program does not yet use encryption to protect stored data, it is recommended to keep the application on a flash drive or other local storage device to reduce exposure and keep your information out of reach.
