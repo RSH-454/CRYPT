@@ -17,12 +17,14 @@ CRYPT is a lightweight command-line Python application that is used for basic cr
  1. Save
  2. Search
  3. View all
- 4. Exit
+ 4. Reset Password 
+ 5. Exit
 Option: 
 ``` 
 - Save: This option allows the user to store new login credentials.
 - Search: This option looks for a specific account within the save data.
 - View all: This option allows the user to see a list of all saved data.
+- Reset Password: This option allows the user to reset their password for CRYPT
 - Exit: This option terminates the program.
 
 ## ⚠️ Security Warning
