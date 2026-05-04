@@ -16,7 +16,7 @@ def header():
    ╚═════╝╚═╝  ╚═╝   ╚═╝   ╚═╝        ╚═╝  
 
                PASSWORD MANAGER
-                  ver 0.3.0-beta.1
+               ver 0.3.0-beta.1
 """)
     
 #This function allows the user to create and set a password for access. 
