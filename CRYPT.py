@@ -13,7 +13,7 @@ def header():
    ╚═════╝╚═╝  ╚═╝   ╚═╝   ╚═╝        ╚═╝  
 
                PASSWORD MANAGER
-               ver 0.3.1-beta.2
+                v0.3.1-alpha.2
 """)
 
  #This function names the files depending on the operating system. If the user is on Linux/macOS it hides th by default.   
