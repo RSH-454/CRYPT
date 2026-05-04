@@ -2,6 +2,7 @@
 [![Python](https://img.shields.io/badge/Python-3.x-blue)](https://www.python.org/downloads/)
 [![Platform](https://img.shields.io/badge/Platform-CLI-lightgrey)](https://en.wikipedia.org/wiki/Command-line_interface)
 [![Status](https://img.shields.io/badge/Status-Active-green)](#)
+![Version](https://img.shields.io/badge/version-0.3.0--beta.1-blue)
 ## 📌 Overview
 CRYPT is a lightweight command-line Python application that is used for basic credential storage and simple access control that can be used on Windows, Linux, and MacOS.
 
@@ -17,12 +18,14 @@ CRYPT is a lightweight command-line Python application that is used for basic cr
  1. Save
  2. Search
  3. View all
- 4. Exit
+ 4. Reset Password 
+ 5. Exit
 Option: 
 ``` 
 - Save: This option allows the user to store new login credentials.
 - Search: This option looks for a specific account within the save data.
 - View all: This option allows the user to see a list of all saved data.
+- Reset Password: This option allows the user to reset their password for CRYPT
 - Exit: This option terminates the program.
 
 ## ⚠️ Security Warning
