@@ -2,9 +2,6 @@ import os
 import getpass
 import hashlib
 
-file_data = 'SavedData.txt'
-auth = "SetPassword.txt"
-
 def header():
     os.system("cls" if os.name == "nt" else "clear")
     print(r"""
@@ -16,21 +13,40 @@ def header():
    ╚═════╝╚═╝  ╚═╝   ╚═╝   ╚═╝        ╚═╝  
 
                PASSWORD MANAGER
-               ver 0.3.0-beta.1
+               ver 0.3.1-beta.1
 """)
-    
+
+ #This function names the files depending on the operating system. If the user is on Linux/macOS it hides th by default.   
+def file_names():
+    if os.name == "nt":  
+        return "SavedData.txt", "SetPassword.txt"
+    else: 
+        return ".SavedData.txt", ".SetPassword.txt"
+
+file_data, auth = file_names()
+
+#This function hides the files. 
+def hide_file(filename):
+    if os.name == 'nt':
+        if os.path.exists(filename):
+            os.system(f'attrib +h "{filename}"')
+
+def unhide_file(filename):
+    if os.name == 'nt':
+        if os.path.exists(filename):
+            os.system(f'attrib -h "{filename}"')
+
 #This function allows the user to create and set a password for access. 
 def access():
     if check_file(auth):
         set_password = input('Create a password: ').strip()
         stored_hash = hash_password(set_password)
-
         with open(auth, 'w') as f:
             f.write(stored_hash)
+        hide_file(auth)     
     else:
         with open(auth, 'r') as f:
             stored_hash = f.read().strip()
-
     while True:
         password = getpass.getpass('Enter password: ').strip()
         if hash_password(password) == stored_hash:
@@ -47,29 +63,15 @@ def check_file(Path):
 def hash_password(password):
     return hashlib.sha256(password.encode()).hexdigest()
 
-#This function hides the files. 
-def hide_files():
-     if os.name == 'nt':
-        if os.path.exists(file_data):
-            os.system(f'attrib +h "{file_data}"')
-        if os.path.exists(auth):
-            os.system(f'attrib +h "{auth}"')
-     else:
-        if os.path.exists(file_data) and not file_data.startswith('.'):
-            os.rename(file_data, '.' + file_data)
-        if os.path.exists(auth) and not auth.startswith('.'):
-            os.rename(auth, '.' + auth)
-
 #This function allows the user to save new data. 
 def save():
     print('Enter name of the account: ')
-    Account = input()
-    Account = Account.strip()
-    print('Enter password: ')
-    Password = input()
-    Password = Password.strip()
+    Account = input().strip()
+    Password = getpass.getpass('Enter password: ').strip()
+    unhide_file(file_data)
     with open(file_data, 'a') as f:
         f.write("Account: " + Account + " " + "Password: " + Password + "\n")
+    hide_file(file_data)
 
 #This function allows the user to search for previously saved data.
 def search():
@@ -109,9 +111,11 @@ def reset_password():
     if new_password != confirm_password:
         print("Passwords do not match.")
         return
-    stored_hash = hash_password(new_password)
+    unhide_file(auth)
     with open(auth, 'w') as f:
-        f.write(stored_hash)
+        f.write(hash_password(new_password))
+    hide_file(auth)
+    print("Password reset successful.")
 
 header()
 access()
@@ -133,7 +137,6 @@ while True:
     
     elif Option == '4':
         reset_password()
-        print('Password reset successful.\n')
         input('Press enter to return to menu...\n')
 
     elif Option == '5':
