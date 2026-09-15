@@ -24,7 +24,7 @@ def header():
    ╚═════╝╚═╝  ╚═╝   ╚═╝   ╚═╝        ╚═╝  
 
                PASSWORD MANAGER
-               ver 0.5.1-beta.1
+               ver 0.5.1-beta.2
 """)
 
 
@@ -43,6 +43,7 @@ def check_file(path):
 
 
 def hash_password(password):
+    salt = hashlib.pbkdf2_hmac('sha256', password.encode(), b'salt', 100000)
     return hashlib.sha256(password.encode()).hexdigest()
 
 
@@ -130,8 +131,18 @@ def save():
 
 def update():
     account = input("Enter the name of the account you want to update: ").strip()
-
     vault = load_vault()
+
+    for entry in vault:
+        if entry["account"] == account:
+            new_password = getpass.getpass("Enter new password: ").strip()
+            entry["password"] = encrypt_password(new_password)
+
+            save_vault(vault)
+            print("Account updated successfully.")
+            return
+        
+    print("Account not found.")
 
     for entry in vault:
         if entry["account"] == account:
@@ -220,43 +231,52 @@ input("Press enter to continue...\n")
 
 while True:
     option = input("""
-Choose option: 
- 1. Password Manangement
- 2. Reset Password
- 3. Exit 
+Choose option:
+ 1. Password Management
+ 2. Reset CRYPT Password
+ 3. Exit
 Option: """
     )
 
-    if option == "2":
-     reset_password()
-     input("Press enter to return to menu...\n")
-
-    if option == "3":
-        clear = "cls" if os.name == "nt" else "clear"
-        os.system(clear)
-        break
-
     if option == "1":
         sub_opt = input("""
-Choose option: 
+Choose option:
  1. Save new password
  2. Search for password
  3. Update password
  4. Delete password
  5. View all saved passwords
-Option: 
-  """) 
-    if sub_opt == "1":  
-        save()
-    elif sub_opt == "2":    
-        search()
-    elif sub_opt == "3":    
-        update()
-    elif sub_opt == "4":    
-        delete()
-    elif sub_opt == "5":    
-        view_all()
+Option: """
+        )
+
+        if sub_opt == "1":
+            save()
+
+        elif sub_opt == "2":
+            search()
+
+        elif sub_opt == "3":
+            update()
+
+        elif sub_opt == "4":
+            delete()
+
+        elif sub_opt == "5":
+            view_all()
+
+        else:
+            print("Invalid option.")
+
         input("Press enter to return to menu...\n")
+
+    elif option == "2":
+        reset_password()
+        input("Press enter to return to menu...\n")
+
+    elif option == "3":
+        clear = "cls" if os.name == "nt" else "clear"
+        os.system(clear)
+        break
 
     else:
         print("Invalid option.")
