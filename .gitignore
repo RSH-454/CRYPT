@@ -1,0 +1,10 @@
+# CRYPT sensitive/generated files
+vault.json
+.vault.json
+auth.hash
+.auth.hash
+secret.key
+.secret.key
+
+# Python cache
+__pycache__/
