@@ -24,7 +24,7 @@ def header():
    ╚═════╝╚═╝  ╚═╝   ╚═╝   ╚═╝        ╚═╝  
 
                PASSWORD MANAGER
-               ver 0.5.1-beta.2
+               ver 0.5.2-beta.1
 """)
 
 
