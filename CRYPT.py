@@ -24,7 +24,7 @@ def header():
    ╚═════╝╚═╝  ╚═╝   ╚═╝   ╚═╝        ╚═╝  
 
                PASSWORD MANAGER
-               ver 0.5.2-beta.1
+               ver 0.6.0-beta.1
 """)
 
 
@@ -43,8 +43,8 @@ def check_file(path):
 
 
 def hash_password(password):
-    salt = hashlib.pbkdf2_hmac('sha256', password.encode(), b'salt', 100000)
-    return hashlib.sha256(password.encode()).hexdigest()
+    salt = hashlib.pbkdf2_hmac('sha512', password.encode(), b'salt', 100000)
+    return hashlib.sha512(salt).hexdigest()
 
 
 def load_key():
@@ -143,14 +143,6 @@ def update():
             return
         
     print("Account not found.")
-
-    for entry in vault:
-        if entry["account"] == account:
-            new_password = getpass.getpass("Enter new password: ").strip()
-            entry["password"] = encrypt_password(new_password)
-        else: 
-            print("Account not found.")
-            return
         
     save_vault(vault)
     print("Account updated successfully.")
@@ -268,10 +260,14 @@ Option: """
             print("Invalid option.")
 
         input("Press enter to return to menu...\n")
+        clear = "cls" if os.name == "nt" else "clear"
+        os.system(clear)
 
     elif option == "2":
         reset_password()
         input("Press enter to return to menu...\n")
+        clear = "cls" if os.name == "nt" else "clear"
+        os.system(clear)
 
     elif option == "3":
         clear = "cls" if os.name == "nt" else "clear"
