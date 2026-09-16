@@ -1,4 +1,6 @@
-# CRYPT
+<p align="center"> <img src="Assets/CRYPT.png" alt="CRYPT Banner"> </p> 
+
+
 [![Python](https://img.shields.io/badge/Python-3.x-blue)](https://www.python.org/downloads/)
 [![Platform](https://img.shields.io/badge/Platform-CLI-lightgrey)](https://en.wikipedia.org/wiki/Command-line_interface)
 [![Status](https://img.shields.io/badge/Status-Active-green)](#)
