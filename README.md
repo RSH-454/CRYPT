@@ -1,8 +1,10 @@
-# CRYPT
+<p align="center"> <img src="Assets/CRYPT.png" alt="CRYPT Banner"> </p> 
+
+
 [![Python](https://img.shields.io/badge/Python-3.x-blue)](https://www.python.org/downloads/)
 [![Platform](https://img.shields.io/badge/Platform-CLI-lightgrey)](https://en.wikipedia.org/wiki/Command-line_interface)
 [![Status](https://img.shields.io/badge/Status-Active-green)](#)
-[![Version](https://img.shields.io/badge/version-0.4.1--beta.1-red)](#)
+[![Version](https://img.shields.io/badge/version-0.3.1--alpha.2-red)](#)
 ## 📌 Overview
 CRYPT is a lightweight command-line Python application that is used for basic credential storage and simple access control that can be used on Windows, Linux, and MacOS.
 
@@ -13,20 +15,42 @@ CRYPT is a lightweight command-line Python application that is used for basic cr
 - Simple and easy-to-use command-line interface
 
 ## 💻 How to use
-### Menu options:
+### Main Menu Options:
 ```
- 1. Password Management
- 2. Reset Password
- 3. Exit
+ 1. Save
+ 2. Search
+ 3. View all
+ 4. Reset Password 
+ 5. Exit
 Option: 
 ``` 
-- Password Management: Allows the user to either save a new password, search for a specific password, or view all saved passwords
+- Save: This option allows the user to store new login credentials.
+- Search: This option looks for a specific account within the save data.
+- View all: This option allows the user to see a list of all saved data.
 - Reset Password: This option allows the user to reset their password for CRYPT
 - Exit: This option terminates the program.
+  
+### Password Management Options: 
+```
+Choose option:
+ 1. Save new password
+ 2. Search for password
+ 3. Update password
+ 4. Delete password
+ 5. View all saved passwords
+Option: 
+```
+- Save new password: This option allows the user to store new credentials.
+- Search for password: This option searches for the account and password the user is looking for.
+- Update password: This option allows the user to update one of their previously stored credentials.
+- Delete password: This option deletes previously stored credentials selected by the user. 
+- View all: This option allows the user to see a list of all saved data.
+
+
 
 ## ⚠️ Security Warning
-  While this program does use encryotion and hashing, it is still recommended to keep the application on a flash drive or other local storage device to reduce exposure and keep your information out of reach.
+  Because this program does not yet use encryption to protect stored data, it is recommended to keep the application on a flash drive or other local storage device to reduce exposure and keep your information out of reach.
 ## ⚖️ License
 This project is licensed under the MIT License.
 
- 🏗️ CRYPT is Still under development...
+ 🏗️ CRYPT is still under development...

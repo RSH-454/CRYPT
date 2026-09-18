@@ -24,7 +24,7 @@ def header():
    ╚═════╝╚═╝  ╚═╝   ╚═╝   ╚═╝        ╚═╝  
 
                PASSWORD MANAGER
-               ver 0.4.1-beta.1
+               ver 0.6.0-beta.1
 """)
 
 
@@ -43,7 +43,8 @@ def check_file(path):
 
 
 def hash_password(password):
-    return hashlib.sha256(password.encode()).hexdigest()
+    salt = hashlib.pbkdf2_hmac('sha512', password.encode(), b'salt', 100000)
+    return hashlib.sha512(salt).hexdigest()
 
 
 def load_key():
@@ -125,11 +126,40 @@ def save():
         "account": account,
         "password": encrypted_password
     })
-
     save_vault(vault)
+    print("Password saved successfully.")
 
-    print("Account saved successfully.")
+def update():
+    account = input("Enter the name of the account you want to update: ").strip()
+    vault = load_vault()
 
+    for entry in vault:
+        if entry["account"] == account:
+            new_password = getpass.getpass("Enter new password: ").strip()
+            entry["password"] = encrypt_password(new_password)
+
+            save_vault(vault)
+            print("Account updated successfully.")
+            return
+        
+    print("Account not found.")
+        
+    save_vault(vault)
+    print("Account updated successfully.")
+
+def delete():
+    account = input("Enter the name of the account you want to delete: ").strip()
+
+    vault = load_vault()
+
+    for entry in vault:
+        if entry["account"] == account:
+            vault.remove(entry)
+            save_vault(vault)
+            print("Account deleted successfully.")
+            return
+
+    print("Account not found.")
 
 def search():
     account = input("Enter the name of the account you want to view: ").strip()
@@ -193,37 +223,56 @@ input("Press enter to continue...\n")
 
 while True:
     option = input("""
-Choose option: 
- 1. Password Manangement
- 2. Reset Password
- 3. Exit 
+Choose option:
+ 1. Password Management
+ 2. Reset CRYPT Password
+ 3. Exit
 Option: """
     )
 
-    if option == "2":
-     reset_password()
-     input("Press enter to return to menu...\n")
+    if option == "1":
+        sub_opt = input("""
+Choose option:
+ 1. Save new password
+ 2. Search for password
+ 3. Update password
+ 4. Delete password
+ 5. View all saved passwords
+Option: """
+        )
 
-    if option == "3":
+        if sub_opt == "1":
+            save()
+
+        elif sub_opt == "2":
+            search()
+
+        elif sub_opt == "3":
+            update()
+
+        elif sub_opt == "4":
+            delete()
+
+        elif sub_opt == "5":
+            view_all()
+
+        else:
+            print("Invalid option.")
+
+        input("Press enter to return to menu...\n")
+        clear = "cls" if os.name == "nt" else "clear"
+        os.system(clear)
+
+    elif option == "2":
+        reset_password()
+        input("Press enter to return to menu...\n")
+        clear = "cls" if os.name == "nt" else "clear"
+        os.system(clear)
+
+    elif option == "3":
         clear = "cls" if os.name == "nt" else "clear"
         os.system(clear)
         break
-
-    if option == "1":
-        sub_opt = input("""
-Choose option: 
- 1. Save new password
- 2. Search for password
- 3. View all saved passwords
-Option: 
-  """) 
-    if sub_opt == "1":  
-        save()
-    elif sub_opt == "2":    
-        search()
-    elif sub_opt == "3":    
-        view_all()
-        input("Press enter to return to menu...\n")
 
     else:
         print("Invalid option.")
